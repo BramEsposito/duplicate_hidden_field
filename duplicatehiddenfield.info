@@ -1,0 +1,3 @@
+name = Duplicate Hidden Field
+description = Defines multiple hidden fields with the same key but different values (to be used in Form API). 
+core = 7.x

@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * Implements hook_element_info().
+ *
+ * @return array
+ */
+
+function duplicate_hidden_field_element_info() {
+  
+  $types['duplicate_hidden_field'] = array(
+    '#input' => TRUE,
+    '#theme' => 'duplicate_hidden_field',
+  );
+
+  return $types;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function duplicate_hidden_field_theme() {
+  return array(
+    'duplicate_hidden_field' => array(
+       'render element' => 'element'
+    ) 
+  );
+}
+
+function theme_duplicate_hidden_field($variables) {
+  $element = $variables['element'];
+  $element['#attributes']['type'] = 'hidden';
+  
+  $html = "";
+  foreach ($element['#value'] as $key => $value) {
+    $thiselement = array_merge(array(), $element);
+    $thiselement['#value'] = $value;
+    element_set_attributes($thiselement, array('name', 'value'));
+    $html .= '<input' . drupal_attributes($thiselement['#attributes']) . " />\n";
+  }
+  return $html;
+}
